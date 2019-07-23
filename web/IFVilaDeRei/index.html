@@ -1,0 +1,789 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title>Área Ardida no Incêndio Florestal de Vila de Rei - Mação 2019</title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/multi-style-layer.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="data/ModelosdeCombustvelNFFL_4.js"></script>
+        <script src="data/COS2015Megaclasses_5.js"></script>
+        <script src="data/Linhasdegua_6.js"></script>
+        <script src="data/Corposdegua_7.js"></script>
+        <script src="data/reasArdidas2017ICNF_8.js"></script>
+        <script src="data/EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1_9.js"></script>
+        <script src="data/LugaresOSM_10.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:11
+        }).fitBounds([[39.58620048030011,-8.344900298494384],[39.83194541549802,-7.80337188960052]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>');
+        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+            map.setMaxBounds(map.getBounds());
+        }
+        var img_SRTMPT25mJAG_0 = 'data/SRTMPT25mJAG_0.png';
+        var img_bounds_SRTMPT25mJAG_0 = [[39.099285859916606,-9.028234975272351],[40.439857186813306,-7.121319168988192]];
+        var layer_SRTMPT25mJAG_0 = new L.imageOverlay(img_SRTMPT25mJAG_0, img_bounds_SRTMPT25mJAG_0);
+        bounds_group.addLayer(layer_SRTMPT25mJAG_0);
+        var layer_GoogleRoad_1 = L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+            opacity: 1.0,
+            attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
+        });
+        layer_GoogleRoad_1;
+        var layer_GoogleSatellite_2 = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            opacity: 1.0,
+            attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
+        });
+        layer_GoogleSatellite_2;
+        var layer_GoogleTerrain_3 = L.tileLayer('https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
+            opacity: 1.0,
+            attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
+        });
+        layer_GoogleTerrain_3;
+        map.addLayer(layer_GoogleTerrain_3);
+        function pop_ModelosdeCombustvelNFFL_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">nffl</th>\
+                        <td>' + (feature.properties['nffl'] !== null ? Autolinker.link(String(feature.properties['nffl'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ModelosdeCombustvelNFFL_4_0(feature) {
+            switch(String(feature.properties['nffl'])) {
+                case '0':
+                    return {
+                pane: 'pane_ModelosdeCombustvelNFFL_4',
+                opacity: 1,
+                color: 'rgba(1,192,255,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(1,192,255,0.6)',
+            }
+                    break;
+                case '1':
+                    return {
+                pane: 'pane_ModelosdeCombustvelNFFL_4',
+                opacity: 1,
+                color: 'rgba(255,255,0,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,0,0.6)',
+            }
+                    break;
+                case '2':
+                    return {
+                pane: 'pane_ModelosdeCombustvelNFFL_4',
+                opacity: 1,
+                color: 'rgba(228,211,79,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(228,211,79,0.6)',
+            }
+                    break;
+                case '4':
+                    return {
+                pane: 'pane_ModelosdeCombustvelNFFL_4',
+                opacity: 1,
+                color: 'rgba(255,0,0,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,0,0,0.6)',
+            }
+                    break;
+                case '5':
+                    return {
+                pane: 'pane_ModelosdeCombustvelNFFL_4',
+                opacity: 1,
+                color: 'rgba(251,154,153,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(251,154,153,0.6)',
+            }
+                    break;
+                case '6':
+                    return {
+                pane: 'pane_ModelosdeCombustvelNFFL_4',
+                opacity: 1,
+                color: 'rgba(255,127,0,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,127,0,0.6)',
+            }
+                    break;
+                case '7':
+                    return {
+                pane: 'pane_ModelosdeCombustvelNFFL_4',
+                opacity: 1,
+                color: 'rgba(130,0,0,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(130,0,0,0.6)',
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_ModelosdeCombustvelNFFL_4');
+        map.getPane('pane_ModelosdeCombustvelNFFL_4').style.zIndex = 404;
+        map.getPane('pane_ModelosdeCombustvelNFFL_4').style['mix-blend-mode'] = 'normal';
+        var layer_ModelosdeCombustvelNFFL_4 = new L.geoJson(json_ModelosdeCombustvelNFFL_4, {
+            attribution: '',
+            pane: 'pane_ModelosdeCombustvelNFFL_4',
+            onEachFeature: pop_ModelosdeCombustvelNFFL_4,
+            style: style_ModelosdeCombustvelNFFL_4_0,
+        });
+        bounds_group.addLayer(layer_ModelosdeCombustvelNFFL_4);
+        function pop_COS2015Megaclasses_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">megaclasse</th>\
+                        <td>' + (feature.properties['megaclasse'] !== null ? Autolinker.link(String(feature.properties['megaclasse'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_COS2015Megaclasses_5_0(feature) {
+            switch(String(feature.properties['megaclasse'])) {
+                case 'Territórios artificializados':
+                    return {
+                pane: 'pane_COS2015Megaclasses_5',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,0,0,0.6)',
+            }
+                    break;
+                case 'Agricultura':
+                    return {
+                pane: 'pane_COS2015Megaclasses_5',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,0,0.6)',
+            }
+                    break;
+                case 'Florestas':
+                    return {
+                pane: 'pane_COS2015Megaclasses_5',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,178,0,0.6)',
+            }
+                    break;
+                case 'Matos':
+                    return {
+                pane: 'pane_COS2015Megaclasses_5',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,255,0,0.6)',
+            }
+                    break;
+                case 'Pastagens':
+                    return {
+                pane: 'pane_COS2015Megaclasses_5',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(220,139,0,0.6)',
+            }
+                    break;
+                case 'Sistemas agro-florestais':
+                    return {
+                pane: 'pane_COS2015Megaclasses_5',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,127,0,0.6)',
+            }
+                    break;
+                case 'Espaços descobertos ou com vegetação esparsa':
+                    return {
+                pane: 'pane_COS2015Megaclasses_5',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(204,204,204,0.6)',
+            }
+                    break;
+                case 'Zonas húmidas':
+                    return {
+                pane: 'pane_COS2015Megaclasses_5',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(166,166,255,0.6)',
+            }
+                    break;
+                case 'Corpos de água':
+                    return {
+                pane: 'pane_COS2015Megaclasses_5',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(1,192,255,0.6)',
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_COS2015Megaclasses_5');
+        map.getPane('pane_COS2015Megaclasses_5').style.zIndex = 405;
+        map.getPane('pane_COS2015Megaclasses_5').style['mix-blend-mode'] = 'normal';
+        var layer_COS2015Megaclasses_5 = new L.geoJson(json_COS2015Megaclasses_5, {
+            attribution: '',
+            pane: 'pane_COS2015Megaclasses_5',
+            onEachFeature: pop_COS2015Megaclasses_5,
+            style: style_COS2015Megaclasses_5_0,
+        });
+        bounds_group.addLayer(layer_COS2015Megaclasses_5);
+        function pop_Linhasdegua_6(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['osm_id'] !== null ? Autolinker.link(String(feature.properties['osm_id'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">code</th>\
+                        <td>' + (feature.properties['code'] !== null ? Autolinker.link(String(feature.properties['code'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">fclass</th>\
+                        <td>' + (feature.properties['fclass'] !== null ? Autolinker.link(String(feature.properties['fclass'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">width</th>\
+                        <td>' + (feature.properties['width'] !== null ? Autolinker.link(String(feature.properties['width'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">name</th>\
+                        <td>' + (feature.properties['name'] !== null ? Autolinker.link(String(feature.properties['name'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Linhasdegua_6_0() {
+            return {
+                pane: 'pane_Linhasdegua_6',
+                opacity: 1,
+                color: 'rgba(1,213,255,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+            }
+        }
+        map.createPane('pane_Linhasdegua_6');
+        map.getPane('pane_Linhasdegua_6').style.zIndex = 406;
+        map.getPane('pane_Linhasdegua_6').style['mix-blend-mode'] = 'normal';
+        var layer_Linhasdegua_6 = new L.geoJson(json_Linhasdegua_6, {
+            attribution: '',
+            pane: 'pane_Linhasdegua_6',
+            onEachFeature: pop_Linhasdegua_6,
+            style: style_Linhasdegua_6_0,
+        });
+        bounds_group.addLayer(layer_Linhasdegua_6);
+        map.addLayer(layer_Linhasdegua_6);
+        function pop_Corposdegua_7(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['osm_id'] !== null ? Autolinker.link(String(feature.properties['osm_id'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">code</th>\
+                        <td>' + (feature.properties['code'] !== null ? Autolinker.link(String(feature.properties['code'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">fclass</th>\
+                        <td>' + (feature.properties['fclass'] !== null ? Autolinker.link(String(feature.properties['fclass'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">name</th>\
+                        <td>' + (feature.properties['name'] !== null ? Autolinker.link(String(feature.properties['name'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Corposdegua_7_0() {
+            return {
+                pane: 'pane_Corposdegua_7',
+                opacity: 1,
+                color: 'rgba(1,213,255,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(1,213,255,1.0)',
+            }
+        }
+        map.createPane('pane_Corposdegua_7');
+        map.getPane('pane_Corposdegua_7').style.zIndex = 407;
+        map.getPane('pane_Corposdegua_7').style['mix-blend-mode'] = 'normal';
+        var layer_Corposdegua_7 = new L.geoJson(json_Corposdegua_7, {
+            attribution: '',
+            pane: 'pane_Corposdegua_7',
+            onEachFeature: pop_Corposdegua_7,
+            style: style_Corposdegua_7_0,
+        });
+        bounds_group.addLayer(layer_Corposdegua_7);
+        map.addLayer(layer_Corposdegua_7);
+        function pop_reasArdidas2017ICNF_8(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Cod_SGIF</th>\
+                        <td>' + (feature.properties['Cod_SGIF'] !== null ? Autolinker.link(String(feature.properties['Cod_SGIF'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Fonte</th>\
+                        <td>' + (feature.properties['Fonte'] !== null ? Autolinker.link(String(feature.properties['Fonte'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nome</th>\
+                        <td>' + (feature.properties['Nome'] !== null ? Autolinker.link(String(feature.properties['Nome'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Distrito</th>\
+                        <td>' + (feature.properties['Distrito'] !== null ? Autolinker.link(String(feature.properties['Distrito'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tipo</th>\
+                        <td>' + (feature.properties['Tipo'] !== null ? Autolinker.link(String(feature.properties['Tipo'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Ano</th>\
+                        <td>' + (feature.properties['Ano'] !== null ? Autolinker.link(String(feature.properties['Ano'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">AreaPov</th>\
+                        <td>' + (feature.properties['AreaPov'] !== null ? Autolinker.link(String(feature.properties['AreaPov'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">AreaMato</th>\
+                        <td>' + (feature.properties['AreaMato'] !== null ? Autolinker.link(String(feature.properties['AreaMato'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">AreaAgric</th>\
+                        <td>' + (feature.properties['AreaAgric'] !== null ? Autolinker.link(String(feature.properties['AreaAgric'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">AreaTotal</th>\
+                        <td>' + (feature.properties['AreaTotal'] !== null ? Autolinker.link(String(feature.properties['AreaTotal'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Reacendime</th>\
+                        <td>' + (feature.properties['Reacendime'] !== null ? Autolinker.link(String(feature.properties['Reacendime'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Queimada</th>\
+                        <td>' + (feature.properties['Queimada'] !== null ? Autolinker.link(String(feature.properties['Queimada'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Falso Alar</th>\
+                        <td>' + (feature.properties['Falso Alar'] !== null ? Autolinker.link(String(feature.properties['Falso Alar'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Fogacho</th>\
+                        <td>' + (feature.properties['Fogacho'] !== null ? Autolinker.link(String(feature.properties['Fogacho'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Incendio</th>\
+                        <td>' + (feature.properties['Incendio'] !== null ? Autolinker.link(String(feature.properties['Incendio'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Agricola</th>\
+                        <td>' + (feature.properties['Agricola'] !== null ? Autolinker.link(String(feature.properties['Agricola'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NomeCCO</th>\
+                        <td>' + (feature.properties['NomeCCO'] !== null ? Autolinker.link(String(feature.properties['NomeCCO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">DataAlerta</th>\
+                        <td>' + (feature.properties['DataAlerta'] !== null ? Autolinker.link(String(feature.properties['DataAlerta'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">HoraAlerta</th>\
+                        <td>' + (feature.properties['HoraAlerta'] !== null ? Autolinker.link(String(feature.properties['HoraAlerta'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Local</th>\
+                        <td>' + (feature.properties['Local'] !== null ? Autolinker.link(String(feature.properties['Local'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Concelho</th>\
+                        <td>' + (feature.properties['Concelho'] !== null ? Autolinker.link(String(feature.properties['Concelho'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Freguesia</th>\
+                        <td>' + (feature.properties['Freguesia'] !== null ? Autolinker.link(String(feature.properties['Freguesia'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">FonteAlert</th>\
+                        <td>' + (feature.properties['FonteAlert'] !== null ? Autolinker.link(String(feature.properties['FonteAlert'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">INE</th>\
+                        <td>' + (feature.properties['INE'] !== null ? Autolinker.link(String(feature.properties['INE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">x</th>\
+                        <td>' + (feature.properties['x'] !== null ? Autolinker.link(String(feature.properties['x'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">y</th>\
+                        <td>' + (feature.properties['y'] !== null ? Autolinker.link(String(feature.properties['y'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Causa</th>\
+                        <td>' + (feature.properties['Causa'] !== null ? Autolinker.link(String(feature.properties['Causa'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">TipoCausa</th>\
+                        <td>' + (feature.properties['TipoCausa'] !== null ? Autolinker.link(String(feature.properties['TipoCausa'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">DHInicio</th>\
+                        <td>' + (feature.properties['DHInicio'] !== null ? Autolinker.link(String(feature.properties['DHInicio'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">DHFim</th>\
+                        <td>' + (feature.properties['DHFim'] !== null ? Autolinker.link(String(feature.properties['DHFim'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Duracao</th>\
+                        <td>' + (feature.properties['Duracao'] !== null ? Autolinker.link(String(feature.properties['Duracao'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">HaHora</th>\
+                        <td>' + (feature.properties['HaHora'] !== null ? Autolinker.link(String(feature.properties['HaHora'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">DataExtinc</th>\
+                        <td>' + (feature.properties['DataExtinc'] !== null ? Autolinker.link(String(feature.properties['DataExtinc'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">HoraExtinc</th>\
+                        <td>' + (feature.properties['HoraExtinc'] !== null ? Autolinker.link(String(feature.properties['HoraExtinc'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Data1Inter</th>\
+                        <td>' + (feature.properties['Data1Inter'] !== null ? Autolinker.link(String(feature.properties['Data1Inter'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Hora1Inter</th>\
+                        <td>' + (feature.properties['Hora1Inter'] !== null ? Autolinker.link(String(feature.properties['Hora1Inter'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Queima</th>\
+                        <td>' + (feature.properties['Queima'] !== null ? Autolinker.link(String(feature.properties['Queima'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Area_SIG</th>\
+                        <td>' + (feature.properties['Area_SIG'] !== null ? Autolinker.link(String(feature.properties['Area_SIG'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_reasArdidas2017ICNF_8_0() {
+            return {
+                pane: 'pane_reasArdidas2017ICNF_8',
+                opacity: 1,
+                color: 'rgba(255,145,1,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,145,1,0.3803921568627451)',
+            }
+        }
+        map.createPane('pane_reasArdidas2017ICNF_8');
+        map.getPane('pane_reasArdidas2017ICNF_8').style.zIndex = 408;
+        map.getPane('pane_reasArdidas2017ICNF_8').style['mix-blend-mode'] = 'normal';
+        var layer_reasArdidas2017ICNF_8 = new L.geoJson(json_reasArdidas2017ICNF_8, {
+            attribution: '',
+            pane: 'pane_reasArdidas2017ICNF_8',
+            onEachFeature: pop_reasArdidas2017ICNF_8,
+            style: style_reasArdidas2017ICNF_8_0,
+        });
+        bounds_group.addLayer(layer_reasArdidas2017ICNF_8);
+        function pop_EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1_9(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">event_type</th>\
+                        <td>' + (feature.properties['event_type'] !== null ? Autolinker.link(String(feature.properties['event_type'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">obj_desc</th>\
+                        <td>' + (feature.properties['obj_desc'] !== null ? Autolinker.link(String(feature.properties['obj_desc'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">det_method</th>\
+                        <td>' + (feature.properties['det_method'] !== null ? Autolinker.link(String(feature.properties['det_method'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">notation</th>\
+                        <td>' + (feature.properties['notation'] !== null ? Autolinker.link(String(feature.properties['notation'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">dmg_src_id</th>\
+                        <td>' + (feature.properties['dmg_src_id'] !== null ? Autolinker.link(String(feature.properties['dmg_src_id'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1_9_0() {
+            return {
+                pane: 'pane_EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1_9',
+                opacity: 1,
+                color: 'rgba(255,0,29,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,0,29,0.2823529411764706)',
+            }
+        }
+        map.createPane('pane_EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1_9');
+        map.getPane('pane_EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1_9').style.zIndex = 409;
+        map.getPane('pane_EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1_9').style['mix-blend-mode'] = 'normal';
+        var layer_EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1_9 = new L.geoJson(json_EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1_9, {
+            attribution: '',
+            pane: 'pane_EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1_9',
+            onEachFeature: pop_EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1_9,
+            style: style_EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1_9_0,
+        });
+        bounds_group.addLayer(layer_EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1_9);
+        map.addLayer(layer_EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1_9);
+        function pop_LugaresOSM_10(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">osm_id</th>\
+                        <td>' + (feature.properties['osm_id'] !== null ? Autolinker.link(String(feature.properties['osm_id'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">code</th>\
+                        <td>' + (feature.properties['code'] !== null ? Autolinker.link(String(feature.properties['code'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">fclass</th>\
+                        <td>' + (feature.properties['fclass'] !== null ? Autolinker.link(String(feature.properties['fclass'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">population</th>\
+                        <td>' + (feature.properties['population'] !== null ? Autolinker.link(String(feature.properties['population'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">name</th>\
+                        <td>' + (feature.properties['name'] !== null ? Autolinker.link(String(feature.properties['name'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_LugaresOSM_10_0() {
+            return {
+                pane: 'pane_LugaresOSM_10',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,255,1.0)',
+            }
+        }
+        function style_LugaresOSM_10_1() {
+            return {
+                pane: 'pane_LugaresOSM_10',
+                radius: 0.875,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,0,0,1.0)',
+            }
+        }
+        map.createPane('pane_LugaresOSM_10');
+        map.getPane('pane_LugaresOSM_10').style.zIndex = 410;
+        map.getPane('pane_LugaresOSM_10').style['mix-blend-mode'] = 'normal';
+        var layer_LugaresOSM_10 = new L.geoJson.multiStyle(json_LugaresOSM_10, {
+            attribution: '',
+            pane: 'pane_LugaresOSM_10',
+            onEachFeature: pop_LugaresOSM_10,
+            pointToLayers: [function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_LugaresOSM_10_0(feature));
+            },function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_LugaresOSM_10_1(feature));
+            },
+        ]});
+        bounds_group.addLayer(layer_LugaresOSM_10);
+        map.addLayer(layer_LugaresOSM_10);
+        var osmGeocoder = new L.Control.Geocoder({
+            collapsed: true,
+            position: 'topleft',
+            text: 'Search',
+            title: 'Testing'
+        }).addTo(map);
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .className += ' fa fa-search';
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .title += 'Search for a place';
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/LugaresOSM_10.png" /> Lugares (OSM)': layer_LugaresOSM_10,'<img src="legend/EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1_9.png" /> EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1': layer_EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1_9,'<img src="legend/reasArdidas2017ICNF_8.png" /> Áreas Ardidas 2017 (ICNF)': layer_reasArdidas2017ICNF_8,'<img src="legend/Corposdegua_7.png" /> Corpos de Água': layer_Corposdegua_7,'<img src="legend/Linhasdegua_6.png" /> Linhas de Água': layer_Linhasdegua_6,'COS 2015 - Megaclasses<br /><table><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_5_Territóriosartificializados0.png" /></td><td>Territórios artificializados</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_5_Agricultura1.png" /></td><td>Agricultura</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_5_Florestas2.png" /></td><td>Florestas</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_5_Matos3.png" /></td><td>Matos</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_5_Pastagens4.png" /></td><td>Pastagens</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_5_Sistemasagroflorestais5.png" /></td><td>Sistemas agro-florestais</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_5_Espaçosdescobertosoucomvegetaçãoesparsa6.png" /></td><td>Espaços descobertos ou com vegetação esparsa</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_5_Zonashúmidas7.png" /></td><td>Zonas húmidas</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_5_Corposdeágua8.png" /></td><td>Corpos de água</td></tr></table>': layer_COS2015Megaclasses_5,'Modelos de Combustível (NFFL)<br /><table><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_4_NãoCombustível0.png" /></td><td>Não Combustível</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_4_1PastofinosecoebaixoVelocidademuitoalta1.png" /></td><td>1 - Pasto fino, seco e baixo (Velocidade muito alta)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_4_2Pastocomaté23dematosouárvoresVelocidadealta2.png" /></td><td>2 - Pasto com até 2/3 de matos ou árvores (Velocidade alta)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_4_4MatosouárvoresmuitodensosccontinuidadehorizontaleverticalIntensidademuitoaltaechamasaltas3.png" /></td><td>4 - Matos ou árvores muito densos c/ continuidade horizontal e vertical (Intensidade muito alta e chamas altas)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_4_5MatosdensosmasbaixosIntensidademoderada4.png" /></td><td>5 - Matos densos mas baixos (Intensidade moderada)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_4_6MatosintermédiosentreoModelo4e5Intensidadealta5.png" /></td><td>6 - Matos intermédios entre o Modelo 4 e 5 (Intensidade alta)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_4_7MatodeespéciesmuitoinflamáveisFogointensommcomteoresdehumidadebaixos6.png" /></td><td>7 - Mato de espécies muito inflamáveis (Fogo intenso mm com teores de humidade baixos)</td></tr></table>': layer_ModelosdeCombustvelNFFL_4,"Google Terrain": layer_GoogleTerrain_3,"Google Satellite": layer_GoogleSatellite_2,"Google Road": layer_GoogleRoad_1,"SRTM PT 25m (JAG)": layer_SRTMPT25mJAG_0,}).addTo(map);
+        map.on("zoomend", function(){
+
+                if (map.hasLayer(layer_LugaresOSM_10)) {
+                    if (map.getZoom() <= 19 && map.getZoom() >= 19) {
+                        layer_LugaresOSM_10.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_LugaresOSM_10.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+        });
+        setBounds();
+        var i = 0;
+        layer_LugaresOSM_10.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['name'] !== null?String('<div style="color: #000000; font-size: 7pt; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['name']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_LugaresOSM_10'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+                if (map.hasLayer(layer_LugaresOSM_10)) {
+                    if (map.getZoom() <= 19 && map.getZoom() >= 19) {
+                        layer_LugaresOSM_10.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_LugaresOSM_10.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+        L.ImageOverlay.include({
+            getBounds: function () {
+                return this._bounds;
+            }
+        });
+        resetLabels([layer_LugaresOSM_10]);
+        map.on("zoomend", function(){
+            resetLabels([layer_LugaresOSM_10]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_LugaresOSM_10]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_LugaresOSM_10]);
+        });
+        </script>
+    </body>
+</html>
