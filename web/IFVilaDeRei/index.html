@@ -18,7 +18,7 @@
             margin: 0;
         }
         </style>
-        <title></title>
+        <title>Área Ardida no Incêndio Florestal de Vila de Rei - Mação (2019)</title>
     </head>
     <body>
         <div id="map">
@@ -41,12 +41,12 @@
         <script src="data/Linhasdegua_7.js"></script>
         <script src="data/Corposdegua_8.js"></script>
         <script src="data/reasArdidas2017ICNF_9.js"></script>
-        <script src="data/EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1_10.js"></script>
+        <script src="data/EMSR372AOI04GRADINGPRODUCT24072019_10.js"></script>
         <script src="data/LugaresOSM_11.js"></script>
         <script>
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:10
-        })
+        }).fitBounds([[39.58985787709087,-8.341018369934192],[39.835589807312836,-7.799489961040327]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>');
         L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
@@ -64,10 +64,6 @@
         .className += ' fas fa-ruler';
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
-            if (bounds_group.getLayers().length) {
-                map.fitBounds(bounds_group.getBounds());
-            }
-            map.setMaxBounds(map.getBounds());
         }
         var img_SRTMPT25mJAG_0 = 'data/SRTMPT25mJAG_0.png';
         var img_bounds_SRTMPT25mJAG_0 = [[39.099285859916606,-9.028234975272351],[40.439857186813306,-7.121319168988192]];
@@ -768,67 +764,81 @@
             style: style_reasArdidas2017ICNF_9_0,
         });
         bounds_group.addLayer(layer_reasArdidas2017ICNF_9);
-        map.addLayer(layer_reasArdidas2017ICNF_9);
-        function pop_EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1_10(feature, layer) {
+        function pop_EMSR372AOI04GRADINGPRODUCT24072019_10(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">event_type</th>\
-                        <td>' + (feature.properties['event_type'] !== null ? Autolinker.link(String(feature.properties['event_type'])) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">obj_desc</th>\
-                        <td>' + (feature.properties['obj_desc'] !== null ? Autolinker.link(String(feature.properties['obj_desc'])) : '') + '</td>\
+                        <th scope="row">damage_gra</th>\
+                        <td>' + (feature.properties['damage_gra'] !== null ? Autolinker.link(String(feature.properties['damage_gra'])) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">det_method</th>\
                         <td>' + (feature.properties['det_method'] !== null ? Autolinker.link(String(feature.properties['det_method'])) : '') + '</td>\
                     </tr>\
-                    <tr>\
-                        <th scope="row">notation</th>\
-                        <td>' + (feature.properties['notation'] !== null ? Autolinker.link(String(feature.properties['notation'])) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">dmg_src_id</th>\
-                        <td>' + (feature.properties['dmg_src_id'] !== null ? Autolinker.link(String(feature.properties['dmg_src_id'])) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">area_ha</th>\
-                        <td>' + (feature.properties['area_ha'] !== null ? Autolinker.link(String(feature.properties['area_ha'])) : '') + '</td>\
-                    </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1_10_0() {
-            return {
-                pane: 'pane_EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1_10',
+        function style_EMSR372AOI04GRADINGPRODUCT24072019_10_0(feature) {
+            switch(String(feature.properties['damage_gra'])) {
+                case 'Possibly damaged':
+                    return {
+                pane: 'pane_EMSR372AOI04GRADINGPRODUCT24072019_10',
                 opacity: 1,
-                color: 'rgba(255,0,29,1.0)',
+                color: 'rgba(255,255,0,0.6)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
-                weight: 2.0, 
+                weight: 1, 
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(255,0,29,0.2823529411764706)',
+                fillColor: 'rgba(255,255,0,0.6)',
+            }
+                    break;
+                case 'Damaged':
+                    return {
+                pane: 'pane_EMSR372AOI04GRADINGPRODUCT24072019_10',
+                opacity: 1,
+                color: 'rgba(255,45,45,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,45,45,0.6)',
+            }
+                    break;
+                case 'Destroyed':
+                    return {
+                pane: 'pane_EMSR372AOI04GRADINGPRODUCT24072019_10',
+                opacity: 1,
+                color: 'rgba(120,0,2,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(120,0,2,0.6)',
+            }
+                    break;
             }
         }
-        map.createPane('pane_EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1_10');
-        map.getPane('pane_EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1_10').style.zIndex = 410;
-        map.getPane('pane_EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1_10').style['mix-blend-mode'] = 'normal';
-        var layer_EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1_10 = new L.geoJson(json_EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1_10, {
+        map.createPane('pane_EMSR372AOI04GRADINGPRODUCT24072019_10');
+        map.getPane('pane_EMSR372AOI04GRADINGPRODUCT24072019_10').style.zIndex = 410;
+        map.getPane('pane_EMSR372AOI04GRADINGPRODUCT24072019_10').style['mix-blend-mode'] = 'normal';
+        var layer_EMSR372AOI04GRADINGPRODUCT24072019_10 = new L.geoJson(json_EMSR372AOI04GRADINGPRODUCT24072019_10, {
             attribution: '',
-            pane: 'pane_EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1_10',
-            onEachFeature: pop_EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1_10,
-            style: style_EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1_10_0,
+            pane: 'pane_EMSR372AOI04GRADINGPRODUCT24072019_10',
+            onEachFeature: pop_EMSR372AOI04GRADINGPRODUCT24072019_10,
+            style: style_EMSR372AOI04GRADINGPRODUCT24072019_10_0,
         });
-        bounds_group.addLayer(layer_EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1_10);
-        map.addLayer(layer_EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1_10);
+        bounds_group.addLayer(layer_EMSR372AOI04GRADINGPRODUCT24072019_10);
+        map.addLayer(layer_EMSR372AOI04GRADINGPRODUCT24072019_10);
         function pop_LugaresOSM_11(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">osm_id</th>\
-                        <td>' + (feature.properties['osm_id'] !== null ? Autolinker.link(String(feature.properties['osm_id'])) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['osm_id'] !== null ? Autolinker.link(String(feature.properties['osm_id'])) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">code</th>\
@@ -913,7 +923,7 @@
         document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
         .title += 'Search for a place';
         var baseMaps = {};
-        L.control.layers(baseMaps,{'<img src="legend/LugaresOSM_11.png" /> Lugares (OSM)': layer_LugaresOSM_11,'<img src="legend/EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1_10.png" /> EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1': layer_EMSR372_AOI02_DEL_PRODUCT_observedEventA_r1_v1_10,'<img src="legend/reasArdidas2017ICNF_9.png" /> Áreas Ardidas 2017 (ICNF)': layer_reasArdidas2017ICNF_9,'<img src="legend/Corposdegua_8.png" /> Corpos de Água': layer_Corposdegua_8,'<img src="legend/Linhasdegua_7.png" /> Linhas de Água': layer_Linhasdegua_7,'COS 2015 - Megaclasses<br /><table><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_6_Territóriosartificializados0.png" /></td><td>Territórios artificializados</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_6_Agricultura1.png" /></td><td>Agricultura</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_6_Florestas2.png" /></td><td>Florestas</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_6_Matos3.png" /></td><td>Matos</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_6_Pastagens4.png" /></td><td>Pastagens</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_6_Sistemasagroflorestais5.png" /></td><td>Sistemas agro-florestais</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_6_Espaçosdescobertosoucomvegetaçãoesparsa6.png" /></td><td>Espaços descobertos ou com vegetação esparsa</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_6_Zonashúmidas7.png" /></td><td>Zonas húmidas</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_6_Corposdeágua8.png" /></td><td>Corpos de água</td></tr></table>': layer_COS2015Megaclasses_6,'Modelos de Combustível (PFernandes) com Area Ardida em 2017<br /><table><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_5_NãoCombustível0.png" /></td><td>Não Combustível</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_5_MEUCFolhadadeEucaliptalcomsubbosquearbustivo1.png" /></td><td>M-EUC - Folhada de Eucaliptal com sub-bosque arbustivo</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_5_MPINFolhadadePinhaiscomsubbosquearbustivo2.png" /></td><td>M-PIN - Folhada de Pinhais com sub-bosque arbustivo</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_5_VMAaMatoalto1mcombastantecombustívelmortofino3.png" /></td><td>V-MAa - Mato alto (>1m) com bastante combustível morto fino</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_5_VMAbMatobaixo1mcombastantecombustívelmortofino4.png" /></td><td>V-MAb - Mato baixo (<1m) com bastante combustível morto fino</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_5_VMMaMatoalto1mcompoucocombustívelmortoefolhagemgrosseira5.png" /></td><td>V-MMa - Mato alto (>1m) com pouco combustível morto e folhagem grosseira</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_5_VMMbMatobaixo1mcompoucocombustívelmortoefolhagemgrosseira6.png" /></td><td>V-MMb - Mato baixo (<1m) com pouco combustível morto e folhagem grosseira</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_5_VMHMatobaixo1meverdedescontínuoecomherbáceasáreasardidas3anos7.png" /></td><td>V-MH - Mato baixo (<1m) e verde, descontínuo e com herbáceas (áreas ardidas < 3 anos)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_5_VHaErvaalta05m8.png" /></td><td>V-Ha - Erva alta (>0.5m)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_5_VHbErvabaixa05m9.png" /></td><td>V-Hb - Erva baixa (<0.5m)</td></tr></table>': layer_ModelosdeCombustvelPFernandescomAreaArdidaem2017_5,'Modelos de Combustível (NFFL)<br /><table><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_4_NãoCombustível0.png" /></td><td>Não Combustível</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_4_1PastofinosecoebaixoVelocidademuitoalta1.png" /></td><td>1 - Pasto fino, seco e baixo (Velocidade muito alta)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_4_2Pastocomaté23dematosouárvoresVelocidadealta2.png" /></td><td>2 - Pasto com até 2/3 de matos ou árvores (Velocidade alta)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_4_4MatosouárvoresmuitodensosccontinuidadehorizontaleverticalIntensidademuitoaltaechamasaltas3.png" /></td><td>4 - Matos ou árvores muito densos c/ continuidade horizontal e vertical (Intensidade muito alta e chamas altas)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_4_5MatosdensosmasbaixosIntensidademoderada4.png" /></td><td>5 - Matos densos mas baixos (Intensidade moderada)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_4_6MatosintermédiosentreoModelo4e5Intensidadealta5.png" /></td><td>6 - Matos intermédios entre o Modelo 4 e 5 (Intensidade alta)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_4_7MatodeespéciesmuitoinflamáveisFogointensommcomteoresdehumidadebaixos6.png" /></td><td>7 - Mato de espécies muito inflamáveis (Fogo intenso mm com teores de humidade baixos)</td></tr></table>': layer_ModelosdeCombustvelNFFL_4,"Google Terrain": layer_GoogleTerrain_3,"Google Satellite": layer_GoogleSatellite_2,"Google Road": layer_GoogleRoad_1,"SRTM PT 25m (JAG)": layer_SRTMPT25mJAG_0,}).addTo(map);
+        L.control.layers(baseMaps,{'<img src="legend/LugaresOSM_11.png" /> Lugares (OSM)': layer_LugaresOSM_11,'EMSR372 AOI04 GRADING PRODUCT (24-07-2019)<br /><table><tr><td style="text-align: center;"><img src="legend/EMSR372AOI04GRADINGPRODUCT24072019_10_Possiblydamaged0.png" /></td><td>Possibly damaged</td></tr><tr><td style="text-align: center;"><img src="legend/EMSR372AOI04GRADINGPRODUCT24072019_10_Damaged1.png" /></td><td>Damaged</td></tr><tr><td style="text-align: center;"><img src="legend/EMSR372AOI04GRADINGPRODUCT24072019_10_Destroyed2.png" /></td><td>Destroyed</td></tr></table>': layer_EMSR372AOI04GRADINGPRODUCT24072019_10,'<img src="legend/reasArdidas2017ICNF_9.png" /> Áreas Ardidas 2017 (ICNF)': layer_reasArdidas2017ICNF_9,'<img src="legend/Corposdegua_8.png" /> Corpos de Água': layer_Corposdegua_8,'<img src="legend/Linhasdegua_7.png" /> Linhas de Água': layer_Linhasdegua_7,'COS 2015 - Megaclasses<br /><table><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_6_Territóriosartificializados0.png" /></td><td>Territórios artificializados</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_6_Agricultura1.png" /></td><td>Agricultura</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_6_Florestas2.png" /></td><td>Florestas</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_6_Matos3.png" /></td><td>Matos</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_6_Pastagens4.png" /></td><td>Pastagens</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_6_Sistemasagroflorestais5.png" /></td><td>Sistemas agro-florestais</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_6_Espaçosdescobertosoucomvegetaçãoesparsa6.png" /></td><td>Espaços descobertos ou com vegetação esparsa</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_6_Zonashúmidas7.png" /></td><td>Zonas húmidas</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_6_Corposdeágua8.png" /></td><td>Corpos de água</td></tr></table>': layer_COS2015Megaclasses_6,'Modelos de Combustível (PFernandes) com Area Ardida em 2017<br /><table><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_5_NãoCombustível0.png" /></td><td>Não Combustível</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_5_MEUCFolhadadeEucaliptalcomsubbosquearbustivo1.png" /></td><td>M-EUC - Folhada de Eucaliptal com sub-bosque arbustivo</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_5_MPINFolhadadePinhaiscomsubbosquearbustivo2.png" /></td><td>M-PIN - Folhada de Pinhais com sub-bosque arbustivo</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_5_VMAaMatoalto1mcombastantecombustívelmortofino3.png" /></td><td>V-MAa - Mato alto (>1m) com bastante combustível morto fino</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_5_VMAbMatobaixo1mcombastantecombustívelmortofino4.png" /></td><td>V-MAb - Mato baixo (<1m) com bastante combustível morto fino</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_5_VMMaMatoalto1mcompoucocombustívelmortoefolhagemgrosseira5.png" /></td><td>V-MMa - Mato alto (>1m) com pouco combustível morto e folhagem grosseira</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_5_VMMbMatobaixo1mcompoucocombustívelmortoefolhagemgrosseira6.png" /></td><td>V-MMb - Mato baixo (<1m) com pouco combustível morto e folhagem grosseira</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_5_VMHMatobaixo1meverdedescontínuoecomherbáceasáreasardidas3anos7.png" /></td><td>V-MH - Mato baixo (<1m) e verde, descontínuo e com herbáceas (áreas ardidas < 3 anos)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_5_VHaErvaalta05m8.png" /></td><td>V-Ha - Erva alta (>0.5m)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_5_VHbErvabaixa05m9.png" /></td><td>V-Hb - Erva baixa (<0.5m)</td></tr></table>': layer_ModelosdeCombustvelPFernandescomAreaArdidaem2017_5,'Modelos de Combustível (NFFL)<br /><table><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_4_NãoCombustível0.png" /></td><td>Não Combustível</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_4_1PastofinosecoebaixoVelocidademuitoalta1.png" /></td><td>1 - Pasto fino, seco e baixo (Velocidade muito alta)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_4_2Pastocomaté23dematosouárvoresVelocidadealta2.png" /></td><td>2 - Pasto com até 2/3 de matos ou árvores (Velocidade alta)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_4_4MatosouárvoresmuitodensosccontinuidadehorizontaleverticalIntensidademuitoaltaechamasaltas3.png" /></td><td>4 - Matos ou árvores muito densos c/ continuidade horizontal e vertical (Intensidade muito alta e chamas altas)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_4_5MatosdensosmasbaixosIntensidademoderada4.png" /></td><td>5 - Matos densos mas baixos (Intensidade moderada)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_4_6MatosintermédiosentreoModelo4e5Intensidadealta5.png" /></td><td>6 - Matos intermédios entre o Modelo 4 e 5 (Intensidade alta)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_4_7MatodeespéciesmuitoinflamáveisFogointensommcomteoresdehumidadebaixos6.png" /></td><td>7 - Mato de espécies muito inflamáveis (Fogo intenso mm com teores de humidade baixos)</td></tr></table>': layer_ModelosdeCombustvelNFFL_4,"Google Terrain": layer_GoogleTerrain_3,"Google Satellite": layer_GoogleSatellite_2,"Google Road": layer_GoogleRoad_1,"SRTM PT 25m (JAG)": layer_SRTMPT25mJAG_0,}).addTo(map);
         map.on("zoomend", function(){
 
                 if (map.hasLayer(layer_LugaresOSM_11)) {
