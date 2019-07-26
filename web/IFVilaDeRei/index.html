@@ -33,20 +33,23 @@
         <script src="js/rbush.min.js"></script>
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
+        <script src="js/leaflet.wms.js"></script>
         <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
         <script src="js/leaflet-measure.js"></script>
-        <script src="data/ModelosdeCombustvelNFFL_4.js"></script>
-        <script src="data/ModelosdeCombustvelPFernandescomAreaArdidaem2017_5.js"></script>
-        <script src="data/COS2015Megaclasses_6.js"></script>
-        <script src="data/Linhasdegua_7.js"></script>
-        <script src="data/Corposdegua_8.js"></script>
-        <script src="data/reasArdidas2017ICNF_9.js"></script>
-        <script src="data/EMSR372AOI04GRADINGPRODUCT24072019_10.js"></script>
-        <script src="data/LugaresOSM_11.js"></script>
+        <script src="data/ModelosdeCombustvelNFFL_8.js"></script>
+        <script src="data/ModelosdeCombustvelPFernandescomAreaArdidaem2017_9.js"></script>
+        <script src="data/COS2015Megaclasses_10.js"></script>
+        <script src="data/Linhasdegua_11.js"></script>
+        <script src="data/Corposdegua_12.js"></script>
+        <script src="data/RedePrimriadeFaixasdeGestodeCombustvelICNF06022019_13.js"></script>
+        <script src="data/reasArdidas2017ICNF_14.js"></script>
+        <script src="data/CopernicusEMSR372AOI04Delimitao25072019_15.js"></script>
+        <script src="data/CopernicusEMSR372AOI04GradingMap24072019_16.js"></script>
+        <script src="data/LugaresOSM_17.js"></script>
         <script>
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:10
-        }).fitBounds([[39.58985787709087,-8.341018369934192],[39.835589807312836,-7.799489961040327]]);
+        }).fitBounds([[39.60843220203344,-8.271759182098208],[39.81708494034975,-7.868750241560798]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>');
         L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
@@ -84,8 +87,38 @@
             attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
         });
         layer_GoogleTerrain_3;
-        map.addLayer(layer_GoogleTerrain_3);
-        function pop_ModelosdeCombustvelNFFL_4(feature, layer) {
+        var layer_Sentinel2Jan2018DGT_4 = L.WMS.layer("http://ows.dgterritorio.pt/wss/service/IPSentinel2-wms/guest?", "S2PT10m_cont_jan2018-IRG", {
+            format: 'image/png',
+            uppercase: true,
+            transparent: true,
+            continuousWorld : true,
+            tiled: true,
+            info_format: 'text/html',
+            opacity: 1,
+            identify: false,
+            attribution: '',
+        });
+        var layer_Sentinel2Dez2018Jan2019DGT_5 = L.WMS.layer("http://ows.dgterritorio.pt/wss/service/IPSentinel2-wms/guest?", "S2PT10m_cont_dez2018_jan2019-IRG", {
+            format: 'image/png',
+            uppercase: true,
+            transparent: true,
+            continuousWorld : true,
+            tiled: true,
+            info_format: 'text/html',
+            opacity: 1,
+            identify: false,
+            attribution: '',
+        });
+        var img_Sentinel2L2AFalsecolor24072019_6 = 'data/Sentinel2L2AFalsecolor24072019_6.png';
+        var img_bounds_Sentinel2L2AFalsecolor24072019_6 = [[39.56893223107541,-8.406263748886499],[39.85571309913974,-7.747079993399591]];
+        var layer_Sentinel2L2AFalsecolor24072019_6 = new L.imageOverlay(img_Sentinel2L2AFalsecolor24072019_6, img_bounds_Sentinel2L2AFalsecolor24072019_6);
+        bounds_group.addLayer(layer_Sentinel2L2AFalsecolor24072019_6);
+        var img_Sentinel2L2ASWIR24072019_7 = 'data/Sentinel2L2ASWIR24072019_7.png';
+        var img_bounds_Sentinel2L2ASWIR24072019_7 = [[39.56893223107541,-8.406263748886499],[39.85571309913974,-7.747079993399591]];
+        var layer_Sentinel2L2ASWIR24072019_7 = new L.imageOverlay(img_Sentinel2L2ASWIR24072019_7, img_bounds_Sentinel2L2ASWIR24072019_7);
+        bounds_group.addLayer(layer_Sentinel2L2ASWIR24072019_7);
+        map.addLayer(layer_Sentinel2L2ASWIR24072019_7);
+        function pop_ModelosdeCombustvelNFFL_8(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <th scope="row">nffl</th>\
@@ -95,11 +128,11 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_ModelosdeCombustvelNFFL_4_0(feature) {
+        function style_ModelosdeCombustvelNFFL_8_0(feature) {
             switch(String(feature.properties['nffl'])) {
                 case '0':
                     return {
-                pane: 'pane_ModelosdeCombustvelNFFL_4',
+                pane: 'pane_ModelosdeCombustvelNFFL_8',
                 opacity: 1,
                 color: 'rgba(1,192,255,0.6)',
                 dashArray: '',
@@ -113,7 +146,7 @@
                     break;
                 case '1':
                     return {
-                pane: 'pane_ModelosdeCombustvelNFFL_4',
+                pane: 'pane_ModelosdeCombustvelNFFL_8',
                 opacity: 1,
                 color: 'rgba(255,255,0,0.6)',
                 dashArray: '',
@@ -127,7 +160,7 @@
                     break;
                 case '2':
                     return {
-                pane: 'pane_ModelosdeCombustvelNFFL_4',
+                pane: 'pane_ModelosdeCombustvelNFFL_8',
                 opacity: 1,
                 color: 'rgba(228,211,79,0.6)',
                 dashArray: '',
@@ -141,7 +174,7 @@
                     break;
                 case '4':
                     return {
-                pane: 'pane_ModelosdeCombustvelNFFL_4',
+                pane: 'pane_ModelosdeCombustvelNFFL_8',
                 opacity: 1,
                 color: 'rgba(255,0,0,0.6)',
                 dashArray: '',
@@ -155,7 +188,7 @@
                     break;
                 case '5':
                     return {
-                pane: 'pane_ModelosdeCombustvelNFFL_4',
+                pane: 'pane_ModelosdeCombustvelNFFL_8',
                 opacity: 1,
                 color: 'rgba(251,154,153,0.6)',
                 dashArray: '',
@@ -169,7 +202,7 @@
                     break;
                 case '6':
                     return {
-                pane: 'pane_ModelosdeCombustvelNFFL_4',
+                pane: 'pane_ModelosdeCombustvelNFFL_8',
                 opacity: 1,
                 color: 'rgba(255,127,0,0.6)',
                 dashArray: '',
@@ -183,7 +216,7 @@
                     break;
                 case '7':
                     return {
-                pane: 'pane_ModelosdeCombustvelNFFL_4',
+                pane: 'pane_ModelosdeCombustvelNFFL_8',
                 opacity: 1,
                 color: 'rgba(130,0,0,0.6)',
                 dashArray: '',
@@ -197,17 +230,17 @@
                     break;
             }
         }
-        map.createPane('pane_ModelosdeCombustvelNFFL_4');
-        map.getPane('pane_ModelosdeCombustvelNFFL_4').style.zIndex = 404;
-        map.getPane('pane_ModelosdeCombustvelNFFL_4').style['mix-blend-mode'] = 'normal';
-        var layer_ModelosdeCombustvelNFFL_4 = new L.geoJson(json_ModelosdeCombustvelNFFL_4, {
+        map.createPane('pane_ModelosdeCombustvelNFFL_8');
+        map.getPane('pane_ModelosdeCombustvelNFFL_8').style.zIndex = 408;
+        map.getPane('pane_ModelosdeCombustvelNFFL_8').style['mix-blend-mode'] = 'normal';
+        var layer_ModelosdeCombustvelNFFL_8 = new L.geoJson(json_ModelosdeCombustvelNFFL_8, {
             attribution: '',
-            pane: 'pane_ModelosdeCombustvelNFFL_4',
-            onEachFeature: pop_ModelosdeCombustvelNFFL_4,
-            style: style_ModelosdeCombustvelNFFL_4_0,
+            pane: 'pane_ModelosdeCombustvelNFFL_8',
+            onEachFeature: pop_ModelosdeCombustvelNFFL_8,
+            style: style_ModelosdeCombustvelNFFL_8_0,
         });
-        bounds_group.addLayer(layer_ModelosdeCombustvelNFFL_4);
-        function pop_ModelosdeCombustvelPFernandescomAreaArdidaem2017_5(feature, layer) {
+        bounds_group.addLayer(layer_ModelosdeCombustvelNFFL_8);
+        function pop_ModelosdeCombustvelPFernandescomAreaArdidaem2017_9(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <th scope="row">mod_pt</th>\
@@ -229,11 +262,11 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_ModelosdeCombustvelPFernandescomAreaArdidaem2017_5_0(feature) {
+        function style_ModelosdeCombustvelPFernandescomAreaArdidaem2017_9_0(feature) {
             switch(String(feature.properties['mod_pt_aa'])) {
                 case '0':
                     return {
-                pane: 'pane_ModelosdeCombustvelPFernandescomAreaArdidaem2017_5',
+                pane: 'pane_ModelosdeCombustvelPFernandescomAreaArdidaem2017_9',
                 opacity: 1,
                 color: 'rgba(1,192,255,0.6)',
                 dashArray: '',
@@ -247,7 +280,7 @@
                     break;
                 case 'M-EUC':
                     return {
-                pane: 'pane_ModelosdeCombustvelPFernandescomAreaArdidaem2017_5',
+                pane: 'pane_ModelosdeCombustvelPFernandescomAreaArdidaem2017_9',
                 opacity: 1,
                 color: 'rgba(192,192,0,0.6)',
                 dashArray: '',
@@ -261,7 +294,7 @@
                     break;
                 case 'M-PIN':
                     return {
-                pane: 'pane_ModelosdeCombustvelPFernandescomAreaArdidaem2017_5',
+                pane: 'pane_ModelosdeCombustvelPFernandescomAreaArdidaem2017_9',
                 opacity: 1,
                 color: 'rgba(85,144,97,0.6)',
                 dashArray: '',
@@ -275,7 +308,7 @@
                     break;
                 case 'V-MAa':
                     return {
-                pane: 'pane_ModelosdeCombustvelPFernandescomAreaArdidaem2017_5',
+                pane: 'pane_ModelosdeCombustvelPFernandescomAreaArdidaem2017_9',
                 opacity: 1,
                 color: 'rgba(130,0,0,0.6)',
                 dashArray: '',
@@ -289,7 +322,7 @@
                     break;
                 case 'V-MAb':
                     return {
-                pane: 'pane_ModelosdeCombustvelPFernandescomAreaArdidaem2017_5',
+                pane: 'pane_ModelosdeCombustvelPFernandescomAreaArdidaem2017_9',
                 opacity: 1,
                 color: 'rgba(255,0,0,0.6)',
                 dashArray: '',
@@ -303,7 +336,7 @@
                     break;
                 case 'V-MMa':
                     return {
-                pane: 'pane_ModelosdeCombustvelPFernandescomAreaArdidaem2017_5',
+                pane: 'pane_ModelosdeCombustvelPFernandescomAreaArdidaem2017_9',
                 opacity: 1,
                 color: 'rgba(255,127,0,0.6)',
                 dashArray: '',
@@ -317,7 +350,7 @@
                     break;
                 case 'V-MMb':
                     return {
-                pane: 'pane_ModelosdeCombustvelPFernandescomAreaArdidaem2017_5',
+                pane: 'pane_ModelosdeCombustvelPFernandescomAreaArdidaem2017_9',
                 opacity: 1,
                 color: 'rgba(255,220,137,0.6)',
                 dashArray: '',
@@ -331,7 +364,7 @@
                     break;
                 case 'V-MH':
                     return {
-                pane: 'pane_ModelosdeCombustvelPFernandescomAreaArdidaem2017_5',
+                pane: 'pane_ModelosdeCombustvelPFernandescomAreaArdidaem2017_9',
                 opacity: 1,
                 color: 'rgba(251,154,153,0.6)',
                 dashArray: '',
@@ -345,7 +378,7 @@
                     break;
                 case 'V-Ha':
                     return {
-                pane: 'pane_ModelosdeCombustvelPFernandescomAreaArdidaem2017_5',
+                pane: 'pane_ModelosdeCombustvelPFernandescomAreaArdidaem2017_9',
                 opacity: 1,
                 color: 'rgba(255,255,0,0.6)',
                 dashArray: '',
@@ -359,7 +392,7 @@
                     break;
                 case 'V-Hb':
                     return {
-                pane: 'pane_ModelosdeCombustvelPFernandescomAreaArdidaem2017_5',
+                pane: 'pane_ModelosdeCombustvelPFernandescomAreaArdidaem2017_9',
                 opacity: 1,
                 color: 'rgba(255,249,179,0.6)',
                 dashArray: '',
@@ -373,17 +406,17 @@
                     break;
             }
         }
-        map.createPane('pane_ModelosdeCombustvelPFernandescomAreaArdidaem2017_5');
-        map.getPane('pane_ModelosdeCombustvelPFernandescomAreaArdidaem2017_5').style.zIndex = 405;
-        map.getPane('pane_ModelosdeCombustvelPFernandescomAreaArdidaem2017_5').style['mix-blend-mode'] = 'normal';
-        var layer_ModelosdeCombustvelPFernandescomAreaArdidaem2017_5 = new L.geoJson(json_ModelosdeCombustvelPFernandescomAreaArdidaem2017_5, {
+        map.createPane('pane_ModelosdeCombustvelPFernandescomAreaArdidaem2017_9');
+        map.getPane('pane_ModelosdeCombustvelPFernandescomAreaArdidaem2017_9').style.zIndex = 409;
+        map.getPane('pane_ModelosdeCombustvelPFernandescomAreaArdidaem2017_9').style['mix-blend-mode'] = 'normal';
+        var layer_ModelosdeCombustvelPFernandescomAreaArdidaem2017_9 = new L.geoJson(json_ModelosdeCombustvelPFernandescomAreaArdidaem2017_9, {
             attribution: '',
-            pane: 'pane_ModelosdeCombustvelPFernandescomAreaArdidaem2017_5',
-            onEachFeature: pop_ModelosdeCombustvelPFernandescomAreaArdidaem2017_5,
-            style: style_ModelosdeCombustvelPFernandescomAreaArdidaem2017_5_0,
+            pane: 'pane_ModelosdeCombustvelPFernandescomAreaArdidaem2017_9',
+            onEachFeature: pop_ModelosdeCombustvelPFernandescomAreaArdidaem2017_9,
+            style: style_ModelosdeCombustvelPFernandescomAreaArdidaem2017_9_0,
         });
-        bounds_group.addLayer(layer_ModelosdeCombustvelPFernandescomAreaArdidaem2017_5);
-        function pop_COS2015Megaclasses_6(feature, layer) {
+        bounds_group.addLayer(layer_ModelosdeCombustvelPFernandescomAreaArdidaem2017_9);
+        function pop_COS2015Megaclasses_10(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <th scope="row">megaclasse</th>\
@@ -393,11 +426,11 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_COS2015Megaclasses_6_0(feature) {
+        function style_COS2015Megaclasses_10_0(feature) {
             switch(String(feature.properties['megaclasse'])) {
                 case 'Territórios artificializados':
                     return {
-                pane: 'pane_COS2015Megaclasses_6',
+                pane: 'pane_COS2015Megaclasses_10',
                 stroke: false, 
                 fill: true,
                 fillOpacity: 1,
@@ -406,7 +439,7 @@
                     break;
                 case 'Agricultura':
                     return {
-                pane: 'pane_COS2015Megaclasses_6',
+                pane: 'pane_COS2015Megaclasses_10',
                 stroke: false, 
                 fill: true,
                 fillOpacity: 1,
@@ -415,7 +448,7 @@
                     break;
                 case 'Florestas':
                     return {
-                pane: 'pane_COS2015Megaclasses_6',
+                pane: 'pane_COS2015Megaclasses_10',
                 stroke: false, 
                 fill: true,
                 fillOpacity: 1,
@@ -424,7 +457,7 @@
                     break;
                 case 'Matos':
                     return {
-                pane: 'pane_COS2015Megaclasses_6',
+                pane: 'pane_COS2015Megaclasses_10',
                 stroke: false, 
                 fill: true,
                 fillOpacity: 1,
@@ -433,7 +466,7 @@
                     break;
                 case 'Pastagens':
                     return {
-                pane: 'pane_COS2015Megaclasses_6',
+                pane: 'pane_COS2015Megaclasses_10',
                 stroke: false, 
                 fill: true,
                 fillOpacity: 1,
@@ -442,7 +475,7 @@
                     break;
                 case 'Sistemas agro-florestais':
                     return {
-                pane: 'pane_COS2015Megaclasses_6',
+                pane: 'pane_COS2015Megaclasses_10',
                 stroke: false, 
                 fill: true,
                 fillOpacity: 1,
@@ -451,7 +484,7 @@
                     break;
                 case 'Espaços descobertos ou com vegetação esparsa':
                     return {
-                pane: 'pane_COS2015Megaclasses_6',
+                pane: 'pane_COS2015Megaclasses_10',
                 stroke: false, 
                 fill: true,
                 fillOpacity: 1,
@@ -460,7 +493,7 @@
                     break;
                 case 'Zonas húmidas':
                     return {
-                pane: 'pane_COS2015Megaclasses_6',
+                pane: 'pane_COS2015Megaclasses_10',
                 stroke: false, 
                 fill: true,
                 fillOpacity: 1,
@@ -469,7 +502,7 @@
                     break;
                 case 'Corpos de água':
                     return {
-                pane: 'pane_COS2015Megaclasses_6',
+                pane: 'pane_COS2015Megaclasses_10',
                 stroke: false, 
                 fill: true,
                 fillOpacity: 1,
@@ -478,17 +511,17 @@
                     break;
             }
         }
-        map.createPane('pane_COS2015Megaclasses_6');
-        map.getPane('pane_COS2015Megaclasses_6').style.zIndex = 406;
-        map.getPane('pane_COS2015Megaclasses_6').style['mix-blend-mode'] = 'normal';
-        var layer_COS2015Megaclasses_6 = new L.geoJson(json_COS2015Megaclasses_6, {
+        map.createPane('pane_COS2015Megaclasses_10');
+        map.getPane('pane_COS2015Megaclasses_10').style.zIndex = 410;
+        map.getPane('pane_COS2015Megaclasses_10').style['mix-blend-mode'] = 'normal';
+        var layer_COS2015Megaclasses_10 = new L.geoJson(json_COS2015Megaclasses_10, {
             attribution: '',
-            pane: 'pane_COS2015Megaclasses_6',
-            onEachFeature: pop_COS2015Megaclasses_6,
-            style: style_COS2015Megaclasses_6_0,
+            pane: 'pane_COS2015Megaclasses_10',
+            onEachFeature: pop_COS2015Megaclasses_10,
+            style: style_COS2015Megaclasses_10_0,
         });
-        bounds_group.addLayer(layer_COS2015Megaclasses_6);
-        function pop_Linhasdegua_7(feature, layer) {
+        bounds_group.addLayer(layer_COS2015Megaclasses_10);
+        function pop_Linhasdegua_11(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['osm_id'] !== null ? Autolinker.link(String(feature.properties['osm_id'])) : '') + '</td>\
@@ -513,9 +546,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_Linhasdegua_7_0() {
+        function style_Linhasdegua_11_0() {
             return {
-                pane: 'pane_Linhasdegua_7',
+                pane: 'pane_Linhasdegua_11',
                 opacity: 1,
                 color: 'rgba(1,213,255,1.0)',
                 dashArray: '',
@@ -525,18 +558,18 @@
                 fillOpacity: 0,
             }
         }
-        map.createPane('pane_Linhasdegua_7');
-        map.getPane('pane_Linhasdegua_7').style.zIndex = 407;
-        map.getPane('pane_Linhasdegua_7').style['mix-blend-mode'] = 'normal';
-        var layer_Linhasdegua_7 = new L.geoJson(json_Linhasdegua_7, {
+        map.createPane('pane_Linhasdegua_11');
+        map.getPane('pane_Linhasdegua_11').style.zIndex = 411;
+        map.getPane('pane_Linhasdegua_11').style['mix-blend-mode'] = 'normal';
+        var layer_Linhasdegua_11 = new L.geoJson(json_Linhasdegua_11, {
             attribution: '',
-            pane: 'pane_Linhasdegua_7',
-            onEachFeature: pop_Linhasdegua_7,
-            style: style_Linhasdegua_7_0,
+            pane: 'pane_Linhasdegua_11',
+            onEachFeature: pop_Linhasdegua_11,
+            style: style_Linhasdegua_11_0,
         });
-        bounds_group.addLayer(layer_Linhasdegua_7);
-        map.addLayer(layer_Linhasdegua_7);
-        function pop_Corposdegua_8(feature, layer) {
+        bounds_group.addLayer(layer_Linhasdegua_11);
+        map.addLayer(layer_Linhasdegua_11);
+        function pop_Corposdegua_12(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['osm_id'] !== null ? Autolinker.link(String(feature.properties['osm_id'])) : '') + '</td>\
@@ -557,9 +590,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_Corposdegua_8_0() {
+        function style_Corposdegua_12_0() {
             return {
-                pane: 'pane_Corposdegua_8',
+                pane: 'pane_Corposdegua_12',
                 opacity: 1,
                 color: 'rgba(1,213,255,1.0)',
                 dashArray: '',
@@ -571,18 +604,60 @@
                 fillColor: 'rgba(1,213,255,1.0)',
             }
         }
-        map.createPane('pane_Corposdegua_8');
-        map.getPane('pane_Corposdegua_8').style.zIndex = 408;
-        map.getPane('pane_Corposdegua_8').style['mix-blend-mode'] = 'normal';
-        var layer_Corposdegua_8 = new L.geoJson(json_Corposdegua_8, {
+        map.createPane('pane_Corposdegua_12');
+        map.getPane('pane_Corposdegua_12').style.zIndex = 412;
+        map.getPane('pane_Corposdegua_12').style['mix-blend-mode'] = 'normal';
+        var layer_Corposdegua_12 = new L.geoJson(json_Corposdegua_12, {
             attribution: '',
-            pane: 'pane_Corposdegua_8',
-            onEachFeature: pop_Corposdegua_8,
-            style: style_Corposdegua_8_0,
+            pane: 'pane_Corposdegua_12',
+            onEachFeature: pop_Corposdegua_12,
+            style: style_Corposdegua_12_0,
         });
-        bounds_group.addLayer(layer_Corposdegua_8);
-        map.addLayer(layer_Corposdegua_8);
-        function pop_reasArdidas2017ICNF_9(feature, layer) {
+        bounds_group.addLayer(layer_Corposdegua_12);
+        map.addLayer(layer_Corposdegua_12);
+        function pop_RedePrimriadeFaixasdeGestodeCombustvelICNF06022019_13(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">TROCO_NAC</th>\
+                        <td>' + (feature.properties['TROCO_NAC'] !== null ? Autolinker.link(String(feature.properties['TROCO_NAC'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">PRIO_FGC</th>\
+                        <td>' + (feature.properties['PRIO_FGC'] !== null ? Autolinker.link(String(feature.properties['PRIO_FGC'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Area_ha</th>\
+                        <td>' + (feature.properties['Area_ha'] !== null ? Autolinker.link(String(feature.properties['Area_ha'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_RedePrimriadeFaixasdeGestodeCombustvelICNF06022019_13_0() {
+            return {
+                pane: 'pane_RedePrimriadeFaixasdeGestodeCombustvelICNF06022019_13',
+                opacity: 1,
+                color: 'rgba(0,255,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,255,0,0.3137254901960784)',
+            }
+        }
+        map.createPane('pane_RedePrimriadeFaixasdeGestodeCombustvelICNF06022019_13');
+        map.getPane('pane_RedePrimriadeFaixasdeGestodeCombustvelICNF06022019_13').style.zIndex = 413;
+        map.getPane('pane_RedePrimriadeFaixasdeGestodeCombustvelICNF06022019_13').style['mix-blend-mode'] = 'normal';
+        var layer_RedePrimriadeFaixasdeGestodeCombustvelICNF06022019_13 = new L.geoJson(json_RedePrimriadeFaixasdeGestodeCombustvelICNF06022019_13, {
+            attribution: '',
+            pane: 'pane_RedePrimriadeFaixasdeGestodeCombustvelICNF06022019_13',
+            onEachFeature: pop_RedePrimriadeFaixasdeGestodeCombustvelICNF06022019_13,
+            style: style_RedePrimriadeFaixasdeGestodeCombustvelICNF06022019_13_0,
+        });
+        bounds_group.addLayer(layer_RedePrimriadeFaixasdeGestodeCombustvelICNF06022019_13);
+        function pop_reasArdidas2017ICNF_14(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <th scope="row">Cod_SGIF</th>\
@@ -740,9 +815,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_reasArdidas2017ICNF_9_0() {
+        function style_reasArdidas2017ICNF_14_0() {
             return {
-                pane: 'pane_reasArdidas2017ICNF_9',
+                pane: 'pane_reasArdidas2017ICNF_14',
                 opacity: 1,
                 color: 'rgba(255,145,1,1.0)',
                 dashArray: '',
@@ -754,17 +829,77 @@
                 fillColor: 'rgba(255,145,1,0.3803921568627451)',
             }
         }
-        map.createPane('pane_reasArdidas2017ICNF_9');
-        map.getPane('pane_reasArdidas2017ICNF_9').style.zIndex = 409;
-        map.getPane('pane_reasArdidas2017ICNF_9').style['mix-blend-mode'] = 'normal';
-        var layer_reasArdidas2017ICNF_9 = new L.geoJson(json_reasArdidas2017ICNF_9, {
+        map.createPane('pane_reasArdidas2017ICNF_14');
+        map.getPane('pane_reasArdidas2017ICNF_14').style.zIndex = 414;
+        map.getPane('pane_reasArdidas2017ICNF_14').style['mix-blend-mode'] = 'normal';
+        var layer_reasArdidas2017ICNF_14 = new L.geoJson(json_reasArdidas2017ICNF_14, {
             attribution: '',
-            pane: 'pane_reasArdidas2017ICNF_9',
-            onEachFeature: pop_reasArdidas2017ICNF_9,
-            style: style_reasArdidas2017ICNF_9_0,
+            pane: 'pane_reasArdidas2017ICNF_14',
+            onEachFeature: pop_reasArdidas2017ICNF_14,
+            style: style_reasArdidas2017ICNF_14_0,
         });
-        bounds_group.addLayer(layer_reasArdidas2017ICNF_9);
-        function pop_EMSR372AOI04GRADINGPRODUCT24072019_10(feature, layer) {
+        bounds_group.addLayer(layer_reasArdidas2017ICNF_14);
+        map.addLayer(layer_reasArdidas2017ICNF_14);
+        function pop_CopernicusEMSR372AOI04Delimitao25072019_15(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">event_type</th>\
+                        <td>' + (feature.properties['event_type'] !== null ? Autolinker.link(String(feature.properties['event_type'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">obj_desc</th>\
+                        <td>' + (feature.properties['obj_desc'] !== null ? Autolinker.link(String(feature.properties['obj_desc'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">det_method</th>\
+                        <td>' + (feature.properties['det_method'] !== null ? Autolinker.link(String(feature.properties['det_method'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">notation</th>\
+                        <td>' + (feature.properties['notation'] !== null ? Autolinker.link(String(feature.properties['notation'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">dmg_src_id</th>\
+                        <td>' + (feature.properties['dmg_src_id'] !== null ? Autolinker.link(String(feature.properties['dmg_src_id'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">damage_gra</th>\
+                        <td>' + (feature.properties['damage_gra'] !== null ? Autolinker.link(String(feature.properties['damage_gra'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">area_ha</th>\
+                        <td>' + (feature.properties['area_ha'] !== null ? Autolinker.link(String(feature.properties['area_ha'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_CopernicusEMSR372AOI04Delimitao25072019_15_0() {
+            return {
+                pane: 'pane_CopernicusEMSR372AOI04Delimitao25072019_15',
+                opacity: 1,
+                color: 'rgba(255,0,29,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,0,29,0.2823529411764706)',
+            }
+        }
+        map.createPane('pane_CopernicusEMSR372AOI04Delimitao25072019_15');
+        map.getPane('pane_CopernicusEMSR372AOI04Delimitao25072019_15').style.zIndex = 415;
+        map.getPane('pane_CopernicusEMSR372AOI04Delimitao25072019_15').style['mix-blend-mode'] = 'normal';
+        var layer_CopernicusEMSR372AOI04Delimitao25072019_15 = new L.geoJson(json_CopernicusEMSR372AOI04Delimitao25072019_15, {
+            attribution: '',
+            pane: 'pane_CopernicusEMSR372AOI04Delimitao25072019_15',
+            onEachFeature: pop_CopernicusEMSR372AOI04Delimitao25072019_15,
+            style: style_CopernicusEMSR372AOI04Delimitao25072019_15_0,
+        });
+        bounds_group.addLayer(layer_CopernicusEMSR372AOI04Delimitao25072019_15);
+        map.addLayer(layer_CopernicusEMSR372AOI04Delimitao25072019_15);
+        function pop_CopernicusEMSR372AOI04GradingMap24072019_16(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <th scope="row">damage_gra</th>\
@@ -778,11 +913,11 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_EMSR372AOI04GRADINGPRODUCT24072019_10_0(feature) {
+        function style_CopernicusEMSR372AOI04GradingMap24072019_16_0(feature) {
             switch(String(feature.properties['damage_gra'])) {
                 case 'Possibly damaged':
                     return {
-                pane: 'pane_EMSR372AOI04GRADINGPRODUCT24072019_10',
+                pane: 'pane_CopernicusEMSR372AOI04GradingMap24072019_16',
                 opacity: 1,
                 color: 'rgba(255,255,0,0.6)',
                 dashArray: '',
@@ -796,7 +931,7 @@
                     break;
                 case 'Damaged':
                     return {
-                pane: 'pane_EMSR372AOI04GRADINGPRODUCT24072019_10',
+                pane: 'pane_CopernicusEMSR372AOI04GradingMap24072019_16',
                 opacity: 1,
                 color: 'rgba(255,45,45,0.6)',
                 dashArray: '',
@@ -810,7 +945,7 @@
                     break;
                 case 'Destroyed':
                     return {
-                pane: 'pane_EMSR372AOI04GRADINGPRODUCT24072019_10',
+                pane: 'pane_CopernicusEMSR372AOI04GradingMap24072019_16',
                 opacity: 1,
                 color: 'rgba(120,0,2,0.6)',
                 dashArray: '',
@@ -824,18 +959,17 @@
                     break;
             }
         }
-        map.createPane('pane_EMSR372AOI04GRADINGPRODUCT24072019_10');
-        map.getPane('pane_EMSR372AOI04GRADINGPRODUCT24072019_10').style.zIndex = 410;
-        map.getPane('pane_EMSR372AOI04GRADINGPRODUCT24072019_10').style['mix-blend-mode'] = 'normal';
-        var layer_EMSR372AOI04GRADINGPRODUCT24072019_10 = new L.geoJson(json_EMSR372AOI04GRADINGPRODUCT24072019_10, {
+        map.createPane('pane_CopernicusEMSR372AOI04GradingMap24072019_16');
+        map.getPane('pane_CopernicusEMSR372AOI04GradingMap24072019_16').style.zIndex = 416;
+        map.getPane('pane_CopernicusEMSR372AOI04GradingMap24072019_16').style['mix-blend-mode'] = 'normal';
+        var layer_CopernicusEMSR372AOI04GradingMap24072019_16 = new L.geoJson(json_CopernicusEMSR372AOI04GradingMap24072019_16, {
             attribution: '',
-            pane: 'pane_EMSR372AOI04GRADINGPRODUCT24072019_10',
-            onEachFeature: pop_EMSR372AOI04GRADINGPRODUCT24072019_10,
-            style: style_EMSR372AOI04GRADINGPRODUCT24072019_10_0,
+            pane: 'pane_CopernicusEMSR372AOI04GradingMap24072019_16',
+            onEachFeature: pop_CopernicusEMSR372AOI04GradingMap24072019_16,
+            style: style_CopernicusEMSR372AOI04GradingMap24072019_16_0,
         });
-        bounds_group.addLayer(layer_EMSR372AOI04GRADINGPRODUCT24072019_10);
-        map.addLayer(layer_EMSR372AOI04GRADINGPRODUCT24072019_10);
-        function pop_LugaresOSM_11(feature, layer) {
+        bounds_group.addLayer(layer_CopernicusEMSR372AOI04GradingMap24072019_16);
+        function pop_LugaresOSM_17(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['osm_id'] !== null ? Autolinker.link(String(feature.properties['osm_id'])) : '') + '</td>\
@@ -860,9 +994,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_LugaresOSM_11_0() {
+        function style_LugaresOSM_17_0() {
             return {
-                pane: 'pane_LugaresOSM_11',
+                pane: 'pane_LugaresOSM_17',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(0,0,0,1.0)',
@@ -875,9 +1009,9 @@
                 fillColor: 'rgba(255,255,255,1.0)',
             }
         }
-        function style_LugaresOSM_11_1() {
+        function style_LugaresOSM_17_1() {
             return {
-                pane: 'pane_LugaresOSM_11',
+                pane: 'pane_LugaresOSM_17',
                 radius: 0.875,
                 opacity: 1,
                 color: 'rgba(0,0,0,1.0)',
@@ -890,28 +1024,28 @@
                 fillColor: 'rgba(0,0,0,1.0)',
             }
         }
-        map.createPane('pane_LugaresOSM_11');
-        map.getPane('pane_LugaresOSM_11').style.zIndex = 411;
-        map.getPane('pane_LugaresOSM_11').style['mix-blend-mode'] = 'normal';
-        var layer_LugaresOSM_11 = new L.geoJson.multiStyle(json_LugaresOSM_11, {
+        map.createPane('pane_LugaresOSM_17');
+        map.getPane('pane_LugaresOSM_17').style.zIndex = 417;
+        map.getPane('pane_LugaresOSM_17').style['mix-blend-mode'] = 'normal';
+        var layer_LugaresOSM_17 = new L.geoJson.multiStyle(json_LugaresOSM_17, {
             attribution: '',
-            pane: 'pane_LugaresOSM_11',
-            onEachFeature: pop_LugaresOSM_11,
+            pane: 'pane_LugaresOSM_17',
+            onEachFeature: pop_LugaresOSM_17,
             pointToLayers: [function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_LugaresOSM_11_0(feature));
+                return L.circleMarker(latlng, style_LugaresOSM_17_0(feature));
             },function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_LugaresOSM_11_1(feature));
+                return L.circleMarker(latlng, style_LugaresOSM_17_1(feature));
             },
         ]});
-        bounds_group.addLayer(layer_LugaresOSM_11);
+        bounds_group.addLayer(layer_LugaresOSM_17);
         var osmGeocoder = new L.Control.Geocoder({
             collapsed: true,
             position: 'topleft',
@@ -923,16 +1057,16 @@
         document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
         .title += 'Search for a place';
         var baseMaps = {};
-        L.control.layers(baseMaps,{'<img src="legend/LugaresOSM_11.png" /> Lugares (OSM)': layer_LugaresOSM_11,'EMSR372 AOI04 GRADING PRODUCT (24-07-2019)<br /><table><tr><td style="text-align: center;"><img src="legend/EMSR372AOI04GRADINGPRODUCT24072019_10_Possiblydamaged0.png" /></td><td>Possibly damaged</td></tr><tr><td style="text-align: center;"><img src="legend/EMSR372AOI04GRADINGPRODUCT24072019_10_Damaged1.png" /></td><td>Damaged</td></tr><tr><td style="text-align: center;"><img src="legend/EMSR372AOI04GRADINGPRODUCT24072019_10_Destroyed2.png" /></td><td>Destroyed</td></tr></table>': layer_EMSR372AOI04GRADINGPRODUCT24072019_10,'<img src="legend/reasArdidas2017ICNF_9.png" /> Áreas Ardidas 2017 (ICNF)': layer_reasArdidas2017ICNF_9,'<img src="legend/Corposdegua_8.png" /> Corpos de Água': layer_Corposdegua_8,'<img src="legend/Linhasdegua_7.png" /> Linhas de Água': layer_Linhasdegua_7,'COS 2015 - Megaclasses<br /><table><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_6_Territóriosartificializados0.png" /></td><td>Territórios artificializados</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_6_Agricultura1.png" /></td><td>Agricultura</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_6_Florestas2.png" /></td><td>Florestas</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_6_Matos3.png" /></td><td>Matos</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_6_Pastagens4.png" /></td><td>Pastagens</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_6_Sistemasagroflorestais5.png" /></td><td>Sistemas agro-florestais</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_6_Espaçosdescobertosoucomvegetaçãoesparsa6.png" /></td><td>Espaços descobertos ou com vegetação esparsa</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_6_Zonashúmidas7.png" /></td><td>Zonas húmidas</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_6_Corposdeágua8.png" /></td><td>Corpos de água</td></tr></table>': layer_COS2015Megaclasses_6,'Modelos de Combustível (PFernandes) com Area Ardida em 2017<br /><table><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_5_NãoCombustível0.png" /></td><td>Não Combustível</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_5_MEUCFolhadadeEucaliptalcomsubbosquearbustivo1.png" /></td><td>M-EUC - Folhada de Eucaliptal com sub-bosque arbustivo</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_5_MPINFolhadadePinhaiscomsubbosquearbustivo2.png" /></td><td>M-PIN - Folhada de Pinhais com sub-bosque arbustivo</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_5_VMAaMatoalto1mcombastantecombustívelmortofino3.png" /></td><td>V-MAa - Mato alto (>1m) com bastante combustível morto fino</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_5_VMAbMatobaixo1mcombastantecombustívelmortofino4.png" /></td><td>V-MAb - Mato baixo (<1m) com bastante combustível morto fino</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_5_VMMaMatoalto1mcompoucocombustívelmortoefolhagemgrosseira5.png" /></td><td>V-MMa - Mato alto (>1m) com pouco combustível morto e folhagem grosseira</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_5_VMMbMatobaixo1mcompoucocombustívelmortoefolhagemgrosseira6.png" /></td><td>V-MMb - Mato baixo (<1m) com pouco combustível morto e folhagem grosseira</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_5_VMHMatobaixo1meverdedescontínuoecomherbáceasáreasardidas3anos7.png" /></td><td>V-MH - Mato baixo (<1m) e verde, descontínuo e com herbáceas (áreas ardidas < 3 anos)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_5_VHaErvaalta05m8.png" /></td><td>V-Ha - Erva alta (>0.5m)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_5_VHbErvabaixa05m9.png" /></td><td>V-Hb - Erva baixa (<0.5m)</td></tr></table>': layer_ModelosdeCombustvelPFernandescomAreaArdidaem2017_5,'Modelos de Combustível (NFFL)<br /><table><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_4_NãoCombustível0.png" /></td><td>Não Combustível</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_4_1PastofinosecoebaixoVelocidademuitoalta1.png" /></td><td>1 - Pasto fino, seco e baixo (Velocidade muito alta)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_4_2Pastocomaté23dematosouárvoresVelocidadealta2.png" /></td><td>2 - Pasto com até 2/3 de matos ou árvores (Velocidade alta)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_4_4MatosouárvoresmuitodensosccontinuidadehorizontaleverticalIntensidademuitoaltaechamasaltas3.png" /></td><td>4 - Matos ou árvores muito densos c/ continuidade horizontal e vertical (Intensidade muito alta e chamas altas)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_4_5MatosdensosmasbaixosIntensidademoderada4.png" /></td><td>5 - Matos densos mas baixos (Intensidade moderada)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_4_6MatosintermédiosentreoModelo4e5Intensidadealta5.png" /></td><td>6 - Matos intermédios entre o Modelo 4 e 5 (Intensidade alta)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_4_7MatodeespéciesmuitoinflamáveisFogointensommcomteoresdehumidadebaixos6.png" /></td><td>7 - Mato de espécies muito inflamáveis (Fogo intenso mm com teores de humidade baixos)</td></tr></table>': layer_ModelosdeCombustvelNFFL_4,"Google Terrain": layer_GoogleTerrain_3,"Google Satellite": layer_GoogleSatellite_2,"Google Road": layer_GoogleRoad_1,"SRTM PT 25m (JAG)": layer_SRTMPT25mJAG_0,}).addTo(map);
+        L.control.layers(baseMaps,{'<img src="legend/LugaresOSM_17.png" /> Lugares (OSM)': layer_LugaresOSM_17,'Copernicus EMS R372 AOI04 (Grading Map 24-07-2019)<br /><table><tr><td style="text-align: center;"><img src="legend/CopernicusEMSR372AOI04GradingMap24072019_16_Possiblydamaged0.png" /></td><td>Possibly damaged</td></tr><tr><td style="text-align: center;"><img src="legend/CopernicusEMSR372AOI04GradingMap24072019_16_Damaged1.png" /></td><td>Damaged</td></tr><tr><td style="text-align: center;"><img src="legend/CopernicusEMSR372AOI04GradingMap24072019_16_Destroyed2.png" /></td><td>Destroyed</td></tr></table>': layer_CopernicusEMSR372AOI04GradingMap24072019_16,'<img src="legend/CopernicusEMSR372AOI04Delimitao25072019_15.png" /> Copernicus EMS R372 AOI04 (Delimitação 25-07-2019)': layer_CopernicusEMSR372AOI04Delimitao25072019_15,'<img src="legend/reasArdidas2017ICNF_14.png" /> Áreas Ardidas 2017 (ICNF)': layer_reasArdidas2017ICNF_14,'<img src="legend/RedePrimriadeFaixasdeGestodeCombustvelICNF06022019_13.png" /> Rede Primária de Faixas de Gestão de Combustível (ICNF 06-02-2019)': layer_RedePrimriadeFaixasdeGestodeCombustvelICNF06022019_13,'<img src="legend/Corposdegua_12.png" /> Corpos de Água': layer_Corposdegua_12,'<img src="legend/Linhasdegua_11.png" /> Linhas de Água': layer_Linhasdegua_11,'COS 2015 - Megaclasses<br /><table><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_10_Territóriosartificializados0.png" /></td><td>Territórios artificializados</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_10_Agricultura1.png" /></td><td>Agricultura</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_10_Florestas2.png" /></td><td>Florestas</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_10_Matos3.png" /></td><td>Matos</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_10_Pastagens4.png" /></td><td>Pastagens</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_10_Sistemasagroflorestais5.png" /></td><td>Sistemas agro-florestais</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_10_Espaçosdescobertosoucomvegetaçãoesparsa6.png" /></td><td>Espaços descobertos ou com vegetação esparsa</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_10_Zonashúmidas7.png" /></td><td>Zonas húmidas</td></tr><tr><td style="text-align: center;"><img src="legend/COS2015Megaclasses_10_Corposdeágua8.png" /></td><td>Corpos de água</td></tr></table>': layer_COS2015Megaclasses_10,'Modelos de Combustível (PFernandes) com Area Ardida em 2017<br /><table><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_9_NãoCombustível0.png" /></td><td>Não Combustível</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_9_MEUCFolhadadeEucaliptalcomsubbosquearbustivo1.png" /></td><td>M-EUC - Folhada de Eucaliptal com sub-bosque arbustivo</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_9_MPINFolhadadePinhaiscomsubbosquearbustivo2.png" /></td><td>M-PIN - Folhada de Pinhais com sub-bosque arbustivo</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_9_VMAaMatoalto1mcombastantecombustívelmortofino3.png" /></td><td>V-MAa - Mato alto (>1m) com bastante combustível morto fino</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_9_VMAbMatobaixo1mcombastantecombustívelmortofino4.png" /></td><td>V-MAb - Mato baixo (<1m) com bastante combustível morto fino</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_9_VMMaMatoalto1mcompoucocombustívelmortoefolhagemgrosseira5.png" /></td><td>V-MMa - Mato alto (>1m) com pouco combustível morto e folhagem grosseira</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_9_VMMbMatobaixo1mcompoucocombustívelmortoefolhagemgrosseira6.png" /></td><td>V-MMb - Mato baixo (<1m) com pouco combustível morto e folhagem grosseira</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_9_VMHMatobaixo1meverdedescontínuoecomherbáceasáreasardidas3anos7.png" /></td><td>V-MH - Mato baixo (<1m) e verde, descontínuo e com herbáceas (áreas ardidas < 3 anos)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_9_VHaErvaalta05m8.png" /></td><td>V-Ha - Erva alta (>0.5m)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelPFernandescomAreaArdidaem2017_9_VHbErvabaixa05m9.png" /></td><td>V-Hb - Erva baixa (<0.5m)</td></tr></table>': layer_ModelosdeCombustvelPFernandescomAreaArdidaem2017_9,'Modelos de Combustível (NFFL)<br /><table><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_8_NãoCombustível0.png" /></td><td>Não Combustível</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_8_1PastofinosecoebaixoVelocidademuitoalta1.png" /></td><td>1 - Pasto fino, seco e baixo (Velocidade muito alta)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_8_2Pastocomaté23dematosouárvoresVelocidadealta2.png" /></td><td>2 - Pasto com até 2/3 de matos ou árvores (Velocidade alta)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_8_4MatosouárvoresmuitodensosccontinuidadehorizontaleverticalIntensidademuitoaltaechamasaltas3.png" /></td><td>4 - Matos ou árvores muito densos c/ continuidade horizontal e vertical (Intensidade muito alta e chamas altas)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_8_5MatosdensosmasbaixosIntensidademoderada4.png" /></td><td>5 - Matos densos mas baixos (Intensidade moderada)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_8_6MatosintermédiosentreoModelo4e5Intensidadealta5.png" /></td><td>6 - Matos intermédios entre o Modelo 4 e 5 (Intensidade alta)</td></tr><tr><td style="text-align: center;"><img src="legend/ModelosdeCombustvelNFFL_8_7MatodeespéciesmuitoinflamáveisFogointensommcomteoresdehumidadebaixos6.png" /></td><td>7 - Mato de espécies muito inflamáveis (Fogo intenso mm com teores de humidade baixos)</td></tr></table>': layer_ModelosdeCombustvelNFFL_8,"Sentinel-2 L2A SWIR (24-07-2019)": layer_Sentinel2L2ASWIR24072019_7,"Sentinel-2 L2A False color (24-07-2019)": layer_Sentinel2L2AFalsecolor24072019_6,"Sentinel-2 Dez2018-Jan2019 (DGT)": layer_Sentinel2Dez2018Jan2019DGT_5,"Sentinel-2 Jan2018 (DGT)": layer_Sentinel2Jan2018DGT_4,"Google Terrain": layer_GoogleTerrain_3,"Google Satellite": layer_GoogleSatellite_2,"Google Road": layer_GoogleRoad_1,"SRTM PT 25m (JAG)": layer_SRTMPT25mJAG_0,}).addTo(map);
         map.on("zoomend", function(){
 
-                if (map.hasLayer(layer_LugaresOSM_11)) {
+                if (map.hasLayer(layer_LugaresOSM_17)) {
                     if (map.getZoom() <= 19 && map.getZoom() >= 19) {
-                        layer_LugaresOSM_11.eachLayer(function (layer) {
+                        layer_LugaresOSM_17.eachLayer(function (layer) {
                             layer.openTooltip();
                         });
                     } else {
-                        layer_LugaresOSM_11.eachLayer(function (layer) {
+                        layer_LugaresOSM_17.eachLayer(function (layer) {
                             layer.closeTooltip();
                         });
                     }
@@ -940,25 +1074,25 @@
         });
         setBounds();
         var i = 0;
-        layer_LugaresOSM_11.eachLayer(function(layer) {
+        layer_LugaresOSM_17.eachLayer(function(layer) {
             var context = {
                 feature: layer.feature,
                 variables: {}
             };
-            layer.bindTooltip((layer.feature.properties['name'] !== null?String('<div style="color: #000000; font-size: 7pt; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['name']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_LugaresOSM_11'});
+            layer.bindTooltip((layer.feature.properties['name'] !== null?String('<div style="color: #000000; font-size: 7pt; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['name']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_LugaresOSM_17'});
             labels.push(layer);
             totalMarkers += 1;
               layer.added = true;
               addLabel(layer, i);
               i++;
         });
-                if (map.hasLayer(layer_LugaresOSM_11)) {
+                if (map.hasLayer(layer_LugaresOSM_17)) {
                     if (map.getZoom() <= 19 && map.getZoom() >= 19) {
-                        layer_LugaresOSM_11.eachLayer(function (layer) {
+                        layer_LugaresOSM_17.eachLayer(function (layer) {
                             layer.openTooltip();
                         });
                     } else {
-                        layer_LugaresOSM_11.eachLayer(function (layer) {
+                        layer_LugaresOSM_17.eachLayer(function (layer) {
                             layer.closeTooltip();
                         });
                     }
@@ -968,15 +1102,15 @@
                 return this._bounds;
             }
         });
-        resetLabels([layer_LugaresOSM_11]);
+        resetLabels([layer_LugaresOSM_17]);
         map.on("zoomend", function(){
-            resetLabels([layer_LugaresOSM_11]);
+            resetLabels([layer_LugaresOSM_17]);
         });
         map.on("layeradd", function(){
-            resetLabels([layer_LugaresOSM_11]);
+            resetLabels([layer_LugaresOSM_17]);
         });
         map.on("layerremove", function(){
-            resetLabels([layer_LugaresOSM_11]);
+            resetLabels([layer_LugaresOSM_17]);
         });
         </script>
     </body>
