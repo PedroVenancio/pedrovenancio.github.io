@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<base target="_top">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>Layers Control Tutorial - Leaflet</title>
+	
+	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="" crossorigin=""></script>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.control.layers.tree@1.1.0/L.Control.Layers.Tree.css" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.control.layers.tree@1.1.0/L.Control.Layers.Tree.js"></script>
+
+	<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		.leaflet-container {
+			height: 400px;
+			width: 600px;
+			max-width: 100%;
+			max-height: 100%;
+		}
+	</style>
+
+	
+</head>
+<body>
+
+<div id='map'></div>
+
+<script>
+	const cities = L.layerGroup();
+    const parks = L.layerGroup();
+
+	const mLittleton = L.marker([39.61, -105.02]).bindPopup('This is Littleton, CO.').addTo(cities);
+	const mDenver = L.marker([39.74, -104.99]).bindPopup('This is Denver, CO.').addTo(cities);
+	const mAurora = L.marker([39.73, -104.8]).bindPopup('This is Aurora, CO.').addTo(cities);
+	const mGolden = L.marker([39.77, -105.23]).bindPopup('This is Golden, CO.').addTo(cities);
+    
+	const crownHill = L.marker([39.75, -105.09]).bindPopup('This is Crown Hill Park.').addTo(parks);
+	const rubyHill = L.marker([39.68, -105.00]).bindPopup('This is Ruby Hill Park.').addTo(parks);
+    
+    const empty = L.tileLayer('');
+
+	const mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
+	const mbUrl = 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+ 
+	const streets = L.tileLayer(mbUrl, {id: 'mapbox/streets-v11', tileSize: 512, zoomOffset: -1, attribution: mbAttr});
+
+	const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 19,
+		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	});
+    
+    const satellite = L.tileLayer(mbUrl, {id: 'mapbox/satellite-v9', tileSize: 512, zoomOffset: -1, attribution: mbAttr});
+
+    const _onInputClickSuper = L.Control.Layers.prototype._onInputClick;
+    const NewLayerControl = L.Control.Layers.include({
+        _onInputClick() {
+            // expanding the control on mobile with a click can cause adding a layer - we don't want this
+            if (this._preventClick) {
+                return;
+            }
+
+            _onInputClickSuper.apply(this);
+        },
+        _expandSafely() {
+            const section = this._section;
+            this._preventClick = true;
+            L.DomEvent.on(section, 'click', L.DomEvent.preventDefault);
+            this.expand();
+            setTimeout(() => {
+                L.DomEvent.off(section, 'click', L.DomEvent.preventDefault);
+                this._preventClick = false;
+            });
+        }
+    })
+
+	const map = L.map('map', {
+		center: [39.73, -104.99],
+		zoom: 10,
+        zoomControl: false, 
+		layers: [satellite, cities]
+	});
+    
+    L.control.zoom({position: 'bottomright'}).addTo(map);
+
+    const baseTree = {
+        label: '<b>BASE LAYERS</b>',
+        children: [
+            {
+                label: '<b>Base Layers</b>',
+                collapsed: true,
+                children: [
+                    { label: 'OpenStreetMap', layer: osm },
+                    { label: 'Streets', layer: streets },
+                    { label: 'Satellite', layer: satellite },
+                ]
+            },
+            {
+                label: '<b>None</b>',
+                collapsed: true,
+                children: [
+                    { label: 'None', layer: empty }
+                ]
+            },
+        ]
+    };
+
+    const overlaysTree = {
+        label: '<b>OVERLAYS</b>',
+        children: [
+            {
+                label: '<b>Overlays</b>',
+                collapsed: true,
+                children: [
+                    { label: 'Cities', layer: cities },
+                    { label: 'Parks', layer: parks }
+                ]
+            },
+        ]
+    };
+
+	const layerControl = L.control.layers.tree(baseTree, overlaysTree, {position:'topleft'}).addTo(map);
+
+</script>
+
+
+
+</body>
+</html>
